@@ -1,5 +1,8 @@
 package com.employee.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.employee.dto.EmployeeDTO;
@@ -31,6 +34,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new ResourceNotFoundException("ID: " + employeeId + " 에 해당하는 직원을 찾을 수 없습니다."));
         return EmployeeMapper.mapToEmployeeDTO(employee);
+    }
+
+    @Override
+    public List<EmployeeDTO> getAllEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+        return employees.stream().map((employee) -> EmployeeMapper.mapToEmployeeDTO(employee))
+                .collect(Collectors.toList());
     }
 
 }
