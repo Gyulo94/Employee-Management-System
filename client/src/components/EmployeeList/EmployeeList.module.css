@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 60%;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+}
+
+.table,
+.table th,
+.table th tr {
+  border: 1px solid gray;
+  border-collapse: collapse;
+  padding: 20px;
+}
