@@ -12,9 +12,11 @@ export default function EmployeeList() {
         console.log(error);
       });
   }, []);
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>직원 목록</h2>
+      <button>직원등록</button>
       <table className={styles.table}>
         <thead>
           <tr>
