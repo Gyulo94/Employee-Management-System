@@ -1,5 +1,0 @@
-{
-  "java.compile.nullAnalysis.mode": "automatic",
-  "java.project.sourcePaths": ["server", "server/src/main/java/com/employee"],
-  "java.configuration.updateBuildConfiguration": "interactive"
-}
