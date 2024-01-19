@@ -5,7 +5,7 @@
   align-items: center;
   color: white;
   width: 60%;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .title {
@@ -14,11 +14,25 @@
   font-size: 2rem;
 }
 
+.table {
+  width: 100%;
+}
+
 .table,
 .table th,
 .table th tr {
   background-color: rgb(9, 20, 83);
-  padding: 10px 15px;
+
   font-size: 1.5rem;
   font-weight: 400;
+}
+
+.table tbody tr th {
+  background-color: #fff;
+  border: none;
+  color: #000;
+}
+
+.buttonWrap {
+  text-align: left;
 }

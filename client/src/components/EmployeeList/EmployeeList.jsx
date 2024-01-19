@@ -15,8 +15,10 @@ export default function EmployeeList() {
 
   return (
     <div className={styles.container}>
+      {/* <div className={styles.buttonWrap}>
+        <button>직원등록</button>
+      </div> */}
       <h2 className={styles.title}>직원 목록</h2>
-      <button>직원등록</button>
       <table className={styles.table}>
         <thead>
           <tr>
