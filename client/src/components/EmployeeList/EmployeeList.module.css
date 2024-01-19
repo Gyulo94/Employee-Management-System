@@ -27,12 +27,30 @@
   font-weight: 400;
 }
 
-.table tbody tr th {
+.table tbody tr td {
   background-color: #fff;
   border: none;
   color: #000;
 }
 
-.buttonWrap {
-  text-align: left;
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.updateBtn {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  width: fit-content;
+  background-color: skyblue;
+}
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  width: fit-content;
+  background-color: red;
+  color: #fff;
 }

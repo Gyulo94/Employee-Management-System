@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./AddEmployee.module.css";
-import { createEmployee } from "../../service/EmployeeService";
-import { useNavigate } from "react-router-dom";
+import {
+  createEmployee,
+  getEmployee,
+  updateEmployee,
+} from "../../service/EmployeeService";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function AddEmployee() {
   const [name, setName] = useState("");
   const [jobGrade, setJobGrade] = useState("");
   const [email, setEmail] = useState("");
   const navigator = useNavigate();
+  const { id } = useParams();
 
   const [errors, setErrors] = useState({
     name: "",
@@ -15,20 +20,43 @@ export default function AddEmployee() {
     email: "",
   });
 
+  useEffect(() => {
+    if (id) {
+      getEmployee(id)
+        .then((res) => {
+          setName(res.data.name);
+          setJobGrade(res.data.jobGrade);
+          setEmail(res.data.email);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [id]);
+
   const handleName = (e) => setName(e.target.value);
   const handlejobGrade = (e) => setJobGrade(e.target.value);
   const handleEmail = (e) => setEmail(e.target.value);
 
-  const saveEmployee = (e) => {
+  const saveOrUpdateEmployee = (e) => {
     e.preventDefault();
     if (validationForm()) {
       const employee = { name, jobGrade, email };
       console.log(employee);
 
-      createEmployee(employee).then((res) => {
-        console.log(res.data);
-        navigator("/employees");
-      });
+      if (id) {
+        updateEmployee(id, employee)
+          .then((res) => {
+            console.log(res.data);
+            navigator("/employees");
+          })
+          .catch((err) => console.error(err));
+      } else {
+        createEmployee(employee)
+          .then((res) => {
+            console.log(res.data);
+            navigator("/employees");
+          })
+          .catch((err) => console.error(err));
+      }
     }
   };
 
@@ -40,21 +68,21 @@ export default function AddEmployee() {
     if (name.trim()) {
       errorsCopy.name = "";
     } else {
-      errorsCopy.name = "올바른 직원의 이름을 입력해주세요.";
+      errorsCopy.name = "직원의 이름을 입력해주세요.";
       valid = false;
     }
 
     if (jobGrade.trim()) {
       errorsCopy.jobGrade = "";
     } else {
-      errorsCopy.jobGrade = "올바른 직원의 직급을 입력해주세요.";
+      errorsCopy.jobGrade = "직원의 직급을 입력해주세요.";
       valid = false;
     }
 
     if (email.trim()) {
       errorsCopy.email = "";
     } else {
-      errorsCopy.email = "올바른 직원의 이메일을 입력해주세요.";
+      errorsCopy.email = "직원의 이메일을 입력해주세요.";
       valid = false;
     }
 
@@ -63,10 +91,18 @@ export default function AddEmployee() {
     return valid;
   };
 
+  const title = () => {
+    if (id) {
+      return <h2>직원 정보 수정</h2>;
+    } else {
+      return <h2>직원 등록</h2>;
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.login}>
-        <h2>직원 등록</h2>
+        {title()}
         <form>
           <label htmlFor="name">직원 이름</label>
           <input
@@ -101,7 +137,7 @@ export default function AddEmployee() {
           />
           {errors.email && <div className={styles.valid}> {errors.email}</div>}
           <div className={styles.buttonWrap}>
-            <button onClick={saveEmployee}>직원 등록</button>
+            <button onClick={saveOrUpdateEmployee}>직원 등록</button>
           </div>
         </form>
       </div>

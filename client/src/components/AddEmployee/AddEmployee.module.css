@@ -1,8 +1,8 @@
 .container {
-  min-height: calc(100vh - 140px);
+  /* min-height: calc(100vh - 140px); */
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .login {
